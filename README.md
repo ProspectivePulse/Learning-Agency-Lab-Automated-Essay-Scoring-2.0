@@ -32,7 +32,7 @@ This section outlines the details of the datasets and data manipulations applied
 
 Various text data preprocessing techniques were applied to the train dataset as described below.
 
-#### 1. Data Augmentation using Word Embeddings: In order to increase the variety of words and the training sample size, the essays were augmented with synonyms calculated, stored and applied as a .pkl file using the code below:
+#### 1. Data Augmentation using Word Embeddings: In order to increase the variety of words and the training sample size, the train data was augmented with synonyms calculated, stored and applied as a .pkl file using the code below:
 
     from gensim.models import KeyedVectors
     from datetime import datetime
@@ -133,12 +133,29 @@ Various text data preprocessing techniques were applied to the train dataset as 
     print("\nLemmatization end time is: ", lem_end)
     print("\nData lemmatization complete")
 
-### Exploratory Data Analysis (EDA): TBC
+### Exploratory Data Analysis (EDA): Analysis of the training dataset revealed a class imbalance _(although, from a real world perspective, it makes sense that the bulk of the essays would likely receive a rank closer to the middle, this could potentially bias the model, and hence was considered as an imbalance and treated using 'Synthetic Minority Oversampling Technique S.M.O.T.E.' {in some model versions but not the final}.)_, whereby, a majority of the essays had a rank/score of 3. The code snippet to observe this and the counts by rank / category are shown below:
+    
+    df_train['score'].value_counts()
+
+    |Score|Record Count|
+    |-----|------------|
+    |1    |1252        |
+    |-----|------------|
+    |2    |4723        |
+    |-----|------------|    
+    |3    |6280        |
+    |-----|------------|
+    |4    |3926        |
+    |-----|------------|
+    |5    |970         |
+    |-----|------------|
+    |6    |156         |
+    |-----|------------|
+    
 
 ## Modeling Approach
 
-The modeling phase was iterative, whereby, a variety of models were built, with alterations ranging from the use of GANs to plain vanilla Text Classification models from the Tensorflow Sequential library. Here's a draft summary of the data preparation approaches applied and the 
-libraries used to build the models.
+This section describes the modeling approach including model selection, architecture, hyperparameter tuning and training procedure for the models.
 
 ### Model Selection: TBC
 

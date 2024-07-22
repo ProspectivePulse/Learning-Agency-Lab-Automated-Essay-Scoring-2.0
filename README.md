@@ -133,7 +133,9 @@ Various text data preprocessing techniques were applied to the train dataset as 
     print("\nLemmatization end time is: ", lem_end)
     print("\nData lemmatization complete")
 
-### Exploratory Data Analysis (EDA): Analysis of the training dataset revealed a class imbalance _(although, from a real world perspective, it makes sense that the bulk of the essays would likely receive a rank closer to the middle, this could potentially bias the model, and hence was considered as an imbalance and treated using 'Synthetic Minority Oversampling Technique S.M.O.T.E.' {in some model versions but not the final}.)_, whereby, a majority of the essays had a rank/score of 3. The code snippet to observe this and the counts by rank / category are shown below:
+### Exploratory Data Analysis (EDA): 
+
+Analysis of the training dataset revealed a class imbalance _(although, from a real world perspective, it makes sense that the bulk of the essays would likely receive a rank closer to the middle, this could potentially bias the model, and hence was considered as an imbalance and treated using 'Synthetic Minority Oversampling Technique S.M.O.T.E.' {in some model versions but not the final}.)_, whereby, a majority of the essays had a rank/score of 3. The code snippet to observe this and the counts by rank / category are shown below:
     
     df_train['score'].value_counts()
 
@@ -155,47 +157,66 @@ Various text data preprocessing techniques were applied to the train dataset as 
 
 ## Modeling Approach
 
-This section describes the modeling approach including model selection, architecture, hyperparameter tuning and training procedure for the models.
+This section describes the modeling approach including - model selection, architecture, hyperparameter tuning and the training procedure for the models.
 
-### Model Selection: TBC
+### Model Selection: 
 
-### Model Architecture: TBC
+Since this was a multi-class text classification problem, the models selected for experimentation were different architectural configurations of Neural Network models from TensorFlows' Sequential library with a 'softmax' activated 'Dense' layer _(containing 6 units)_ as the final layer.
 
-### Hyperparameter Tuning: TBC
+### Model Architecture: 
 
-### Training Procedure: TBC
+Here is an example of a simple architecture of one of the text classification models:
+
+    model = tf.keras.Sequential([
+    tf.keras.layers.Input(shape=(max_length,)),
+    tf.keras.layers.Embedding(input_dim=400000, output_dim=128), # input dim increased 30/05/2024
+    tf.keras.layers.Conv1D(128, 5, activation='relu'),
+    tf.keras.layers.Dropout(0.4),
+    tf.keras.layers.Dense(64, activation='relu', kernel_regularizer=l2(0.01)),
+    tf.keras.layers.Dropout(0.4),
+    tf.keras.layers.Dense(64, activation='relu', kernel_regularizer=l2(0.01)), # added 28/05/2024
+    tf.keras.layers.Dropout(0.4), # added 28/05/2024   
+    tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(32, return_sequences=True)),
+    tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(32, return_sequences=True)),    
+    tf.keras.layers.GlobalMaxPooling1D(),
+    tf.keras.layers.Dense(6, activation='softmax')
+    ])
+
+### Hyperparameter Tuning: 
+
+### Training Procedure: 
   
 
-## Evaluation Metrics: TBC
+## Evaluation Metrics: 
 
-### Chosen Metrics: TBC
+### Chosen Metrics: 
 
-### Rationale: TBC
+### Rationale: 
 
-### Results: TBC
+### Results: 
 
-## Model Performance: TBC
+## Model Performance: 
 
-### Validation Results: TBC
+### Validation Results: 
 
-### Cross-Validation: TBC
+### Cross-Validation: 
 
-### Error Analysis: TBC
+### Error Analysis: 
 
-## Conclusion: TBC
+## Conclusion: 
 
-### Summary: TBC
+### Summary: 
 
-### Challenges: TBC
+### Challenges: 
 
-### Future Work: TBC
+### Future Work: 
 
-## Appendices: TBC
+## Appendices: 
 
-### Additional Resources: TBC
+### Additional Resources: 
 
-## References: TBC
+## References: 
 
-### Citations: TBC
+### Citations: 
 
 

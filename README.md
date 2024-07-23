@@ -133,6 +133,36 @@ Various text data preprocessing techniques were applied to the train dataset as 
     print("\nLemmatization end time is: ", lem_end)
     print("\nData lemmatization complete")
 
+#### 3. Text Vectorization _(Implemented in the final phase for some models)_: To support experiments where the 'stacked' models approach _(to improve prediction quality)_ was used; the text corpus was vectorized using the 'TfidfVectorizer' library from 'sklearn.feature_extraction.text' was used as shown below: 
+
+    tfidf_vectorizer = TfidfVectorizer(max_features=1000, analyzer='word', ngram_range=(1,9))
+    X_train = tfidf_vectorizer.fit_transform(X_train).toarray()
+    X_test = tfidf_vectorizer.transform(X_test).toarray()
+
+#### 4. Tokenization and Padding: Since the final model, including in the 'stacked' approach; was a TensorFlow Sequential neural network model, data was _(i.e. in addition to synonym augmentation and lemmatization described above)_ tokenized using B.P.E. _(Byte Pair Encoding)_ approach and subsequently padded to ensure that the sequences fed to the model were of the same length. The 'padded_texts' were then converted to TensorFlow Datasets. The code for each of these steps is shown below:
+
+    # Tokenzing data for neural network
+    
+    from tokenizers import Tokenizer, models, pre_tokenizers, trainers, normalizers    
+    tokenizer = Tokenizer(models.BPE())
+    tokenizer.normalizer = normalizers.Sequence([normalizers.NFKC(), normalizers.Lowercase()])
+    tokenizer.pre_tokenizer = pre_tokenizers.Whitespace()
+    trainer = trainers.BpeTrainer(vocab_size=400000, special_tokens=["[UNK]", "[CLS]", "[SEP]", "[PAD]", "[MASK]"])
+    tokenizer.train_from_iterator(X_train_nn, trainer)
+    tokenizer.save("tokenizer.json")
+    tokenizer = Tokenizer.from_file("tokenizer.json")
+    tokenized_texts = [tokenizer.encode(text).ids for text in X_train_nn]
+
+    # Pad the tokenized texts
+    
+    from tensorflow.keras.preprocessing.sequence import pad_sequences
+    padded_texts = pad_sequences(tokenized_texts, maxlen=max_length, padding='post', truncating='post')
+
+    # Create a TensorFlow dataset
+    
+    dataset = tf.data.Dataset.from_tensor_slices((padded_texts, y_train_nn))
+    dataset = dataset.shuffle(len(padded_texts), seed=SEED).batch(128)
+
 ### Exploratory Data Analysis (EDA): 
 
 Analysis of the training dataset revealed a class imbalance _(although, from a real world perspective, it makes sense that the bulk of the essays would likely receive a rank closer to the middle, this could potentially bias the model, and hence was considered as an imbalance and treated using 'Synthetic Minority Oversampling Technique S.M.O.T.E.' {in some model versions but not the final}.)_, whereby, a majority of the essays had a rank/score of 3. The code snippet to observe this and the counts by rank / category are shown below:

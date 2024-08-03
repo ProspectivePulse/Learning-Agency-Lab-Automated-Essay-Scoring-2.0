@@ -141,7 +141,7 @@ Various text data preprocessing techniques were applied to the train dataset as 
 
 #### 4. Tokenization and Padding: Since the final model, including in the 'stacked' approach; was a TensorFlow Sequential neural network model, data was _(in addition to synonym augmentation and lemmatization described above)_ tokenized using B.P.E. _(Byte Pair Encoding)_ approach and subsequently padded to ensure that the sequences fed to the model were of the same length. The 'padded_texts' were then converted to TensorFlow Datasets. The code for each of these steps is shown below:
 
-    # Tokenzing data for neural network
+    # Tokenizing data for neural network
     
     from tokenizers import Tokenizer, models, pre_tokenizers, trainers, normalizers    
     tokenizer = Tokenizer(models.BPE())

@@ -214,8 +214,16 @@ Here is an example of a simple architecture of one of the text classification mo
 
 ### Hyperparameter Tuning: 
 
-### Training Procedure: 
-  
+### Training Procedure:
+
+As mentioned above, the original dataset was split into 'training' and 'validation' sets. Training the model involved multiple experiments, and some of the approaches are described here:
+
+- Addition/Removal of Dense layers
+- Increasing/Decreasing the number of units in the Dense layers _(except the final/output Dense layer)_
+- Learning Rate tuning of the model optimizer
+- Addition/Removal of Regularization parameters
+- Implementation of G.A.Ns _(Generative Adversarial Networks)_ by using Tensorflows Gradient Tape technique
+- Using Ensemble methods, whereby, results from 3 different models _(XGBoostClassifier, Logistic Regression and Tensorflow Sequential Neural Network)_ were combined to make predictions
 
 ## Evaluation Metrics: 
 
@@ -224,6 +232,8 @@ Here is an example of a simple architecture of one of the text classification mo
 ### Rationale: 
 
 ### Results: 
+
+In the final iteration, the model reached a training accuracy of 80% and prediction accuracy of 72%.
 
 ## Model Performance: 
 
@@ -237,7 +247,12 @@ Here is an example of a simple architecture of one of the text classification mo
 
 ### Summary: 
 
+For a text classification problem _(especially with a neural network based architecture)_, ~17,000 records is quite low. This makes the model prone to overfitting during the training phase and makes it difficult for the model to generalize to unseen data. Techniques such as data augmentation, incorporating additional
+records by calculating word synoyms and generating synthetic data could potentially improve model accuracy, although applying these techniques didn't contribute much towards accuracy improvement for this problem.
+
 ### Challenges: 
+
+The primary challenge in this modeling problem was the low data volume.
 
 ### Future Work: 
 

@@ -139,7 +139,7 @@ Various text data preprocessing techniques were applied to the train dataset as 
     X_train = tfidf_vectorizer.fit_transform(X_train).toarray()
     X_test = tfidf_vectorizer.transform(X_test).toarray()
 
-#### 4. Tokenization and Padding: Since the final model, including in the 'stacked' approach; was a TensorFlow Sequential neural network model, data was _(i.e. in addition to synonym augmentation and lemmatization described above)_ tokenized using B.P.E. _(Byte Pair Encoding)_ approach and subsequently padded to ensure that the sequences fed to the model were of the same length. The 'padded_texts' were then converted to TensorFlow Datasets. The code for each of these steps is shown below:
+#### 4. Tokenization and Padding: Since the final model, including in the 'stacked' approach; was a TensorFlow Sequential neural network model, data was _(in addition to synonym augmentation and lemmatization described above)_ tokenized using B.P.E. _(Byte Pair Encoding)_ approach and subsequently padded to ensure that the sequences fed to the model were of the same length. The 'padded_texts' were then converted to TensorFlow Datasets. The code for each of these steps is shown below:
 
     # Tokenzing data for neural network
     

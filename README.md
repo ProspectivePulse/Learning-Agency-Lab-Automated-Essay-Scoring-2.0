@@ -1,6 +1,38 @@
 # Learning Agency Lab Automated Essay Scoring 2.0
 
-_A Kaggle competition to automate the ranking/scoring of essays on a scale of 1 to 6._
+_An end-to-end deep learning pipeline for **automated essay scoring (AES)**, built on the Learning Agency Lab dataset. This repo demonstrates **text preprocessing, data augmentation, neural networks (CNN + LSTM), and evaluation**, wrapped in a reproducible and modular setup._
+
+---
+
+## Features
+- Text preprocessing: cleaning, lemmatization, tokenization
+- Data augmentation using GloVe similarity
+- Deep learning model (Embedding + CNN + Bi-LSTM + Dense layers)
+- Evaluation with kappa score and accuracy
+- Extensible pipeline for further experimentation
+
+---
+
+## Quick Start
+
+Clone the repo and install requirements:
+
+git clone https://github.com/ProspectivePulse/Learning-Agency-Lab-Automated-Essay-Scoring-2.0
+cd Learning-Agency-Lab-Automated-Essay-Scoring-2.0
+pip install -r requirements.txt
+
+## Train a Model
+Open the notebook:
+
+jupyter notebook notebooks/essay_scoring.ipynb
+
+## Inference
+
+
+### Run Inference
+In the same notebook, scroll to the "Inference" section and run the cell:
+
+predict("The Industrial Revolution had many impacts on society...")
 
 ## Problem Description / Objective
 
